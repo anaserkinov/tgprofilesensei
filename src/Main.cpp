@@ -6,10 +6,11 @@
 #include <string>
 #include <unordered_map>
 
-#include "Database.hpp"
+#include "DatabaseController.cpp"
 #include "Fragment.hpp"
 #include "FragmentManager.hpp"
 #include "Fragments.hpp"
+#include "LoginFragment.cpp"
 
 using namespace TgBot;
 
@@ -33,20 +34,25 @@ int main() {
 
     TgBot::Bot bot(configMap["BOT_TOKEN"]);
 
+    DatabaseController dbController;
+
     FragmentManager fragmentManager(&bot);
-    fragmentManager.setFragmentFactory([](int fragmentId) -> Fragment* {
+    fragmentManager.setFragmentFactory([&dbController](int fragmentId) -> Fragment {
         switch (fragmentId) {
-        case Fragments::MAIN:
-            return new Fragment(1);
+        case Fragments::LOGIN: {
+            BaseFragment fragment = LoginFragment();
+            fragment.setDBController(&dbController);
+            return fragment;
+        }
         default:
-            return new Fragment(1);
+            return Fragment(1);
         }
     });
 
     bot.getEvents().onCommand(
             {"start"},
             [&](TgBot::Message::Ptr message) {
-                // const std::string message = message->text;
+                
             });
 
     bot.getEvents().onNonCommandMessage([&bot, &fragmentManager](Message::Ptr message) {

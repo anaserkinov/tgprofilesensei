@@ -3,7 +3,7 @@
 
 class Fragments{
 public:
-    static const int MAIN = 2;
+    static const int LOGIN = 2;
     
 
 };
