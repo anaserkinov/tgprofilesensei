@@ -1,15 +1,7 @@
-#include "MainDatabase.cpp"
-#include "Database.hpp"
+#include "DatabaseController.hpp"
 
-class DatabaseController{
-public:
-    DatabaseController(){
+DatabaseController::DatabaseController() {
+}
 
-    }
-
-
-
-    ~DatabaseController(){
-
-    }
-};
+DatabaseController::~DatabaseController() {
+}

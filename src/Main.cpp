@@ -6,11 +6,9 @@
 #include <string>
 #include <unordered_map>
 
-#include "DatabaseController.cpp"
-#include "Fragment.hpp"
+#include "DatabaseController.hpp"
 #include "FragmentManager.hpp"
 #include "Fragments.hpp"
-#include "LoginFragment.cpp"
 
 using namespace TgBot;
 
@@ -37,15 +35,15 @@ int main() {
     DatabaseController dbController;
 
     FragmentManager fragmentManager(&bot);
-    fragmentManager.setFragmentFactory([&dbController](int fragmentId) -> Fragment {
+    fragmentManager.setFragmentFactory([&dbController](int fragmentId) -> Fragment* {
         switch (fragmentId) {
         case Fragments::LOGIN: {
-            BaseFragment fragment = LoginFragment();
-            fragment.setDBController(&dbController);
+            BaseFragment* fragment = new LoginFragment();
+            fragment->setDBController(&dbController);
             return fragment;
         }
         default:
-            return Fragment(1);
+            return new Fragment(1);
         }
     });
 

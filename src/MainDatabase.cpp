@@ -1,12 +1,3 @@
-#include "Database.hpp"
-
-class MainDatabase {
-private:
-    static Database database;
-public:
-    static Database& getDB(){
-        return database;
-    }
-};
+#include "MainDatabase.hpp"
 
 Database MainDatabase::database = Database("main_db.db");
